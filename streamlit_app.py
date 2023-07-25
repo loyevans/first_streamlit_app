@@ -4,14 +4,6 @@ import requests
 import snowflake.connector
 from urllib.error import URLError
 
-#create repeatable code block function
-def get_fruityvice_data(this_fruit_choice):
-    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + this_fruit_choice)
-    #take response and normalize it
-    fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
-    #output to the screen as a table
-    return streamlit.dataframe(fruityvice_normalized)
-
 # main menu
 streamlit.title('My New Healthy Diner')
 streamlit.header('Breakfast Menu')
@@ -31,6 +23,15 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 # fruit list data frame
 streamlit.dataframe(fruits_to_show)
 
+
+#create repeatable code block function
+def get_fruityvice_data(this_fruit_choice):
+    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + this_fruit_choice)
+    #take response and normalize it
+    fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+    #output to the screen as a table
+    return streamlit.dataframe(fruityvice_normalized)
+    
 #new section to display fruityvice api response
 streamlit.header('Fruityvice Fruit Advice!')
 try: 
